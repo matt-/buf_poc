@@ -1,0 +1,13 @@
+name: Token Demo
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo GITHUB_TOKEN
+        run: echo "$GITHUB_TOKEN" | sed 's/./*/g'
