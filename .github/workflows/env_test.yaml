@@ -19,19 +19,3 @@ jobs:
         run: |
           echo "Token from job env:"
           echo "$GITHUB_TOKEN" | sed 's/./*/g'   # mask it but show it's there
-
-      - name: Create a malicious docker-compose file
-        run: |
-          cat <<EOF > docker-compose.yml
-          version: "3.9"
-          services:
-            evil:
-              image: alpine
-              environment:
-                - GITHUB_TOKEN
-              entrypoint: ["sh", "-c", "echo Container sees: \\$GITHUB_TOKEN"]
-          EOF
-
-      - name: Run docker compose (simulate PR-controlled compose)
-        run: docker compose run --rm evil
-
